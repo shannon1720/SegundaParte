@@ -12,6 +12,9 @@ public class FactoryEncrypt {
 		case AES:
 			return new ManagerSymmetric();
 
+		case RC2:
+			return new ManagerEncrypttoRC2();
+			
 		default:
 			return null;
 		}
