@@ -41,7 +41,7 @@ public class UI {
 			break;
 
 		case 3:
-			// otherOption();
+			 otherOption(TypeEncript.RC2);
 			break;
 
 		case 4:
@@ -54,6 +54,15 @@ public class UI {
 
 		}
 
+	}
+
+	private static void otherOption(TypeEncript ptype) throws Exception {
+		int opc = 0;
+		do {
+			subMenu();
+			opc = Integer.parseInt(br.readLine());
+			chooseOptionA(opc, ptype);
+		} while (opc != 4);
 	}
 
 	private static void symmetricOption(TypeEncript ptype) throws Exception {
@@ -87,7 +96,6 @@ public class UI {
 		case 3:
 			DencryptMessage();
 			break;
-
 		case 4:
 			break;
 		}
@@ -100,7 +108,7 @@ public class UI {
 		keyName = br.readLine();
 		System.out.println("Message name: ");
 		messageName = br.readLine();
-		eM.decryptMessage(messageName, keyName);
+		System.out.println(eM.decryptMessage(messageName, keyName));
 
 	}
 
@@ -137,7 +145,7 @@ public class UI {
 		System.out.println();
 		System.out.println("1-RSA");
 		System.out.println("2-AES");
-		System.out.println("3-DM5");
+		System.out.println("3-RC2");
 		System.out.println("4-Exit");
 		System.out.println("Choose a option:");
 	}

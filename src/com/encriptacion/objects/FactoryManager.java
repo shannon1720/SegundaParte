@@ -12,7 +12,7 @@ public interface FactoryManager {
 	
 	void encryptMessage(String messageName, String message, String keyName) throws Exception;
 	
-	void decryptMessage(String messageName, String keyName) throws Exception;
+	String decryptMessage(String messageName, String keyName) throws Exception;
 	
     void writeBytesFile(String name, byte[] content, String type) throws IOException;
 	 
