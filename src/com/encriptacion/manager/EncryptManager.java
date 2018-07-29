@@ -9,8 +9,8 @@ public class EncryptManager {
 	FactoryManager fm;
 	
 
-public void initEncrypt(TypeEncript ptype) {	
- fm=FactoryEncrypt.createEncrypt(ptype);
+public FactoryManager initEncrypt(TypeEncript ptype) {	
+ return this.fm=FactoryEncrypt.createEncrypt(ptype);
 }
 	
 public void createKey(String name) throws Exception {	
@@ -21,8 +21,8 @@ public void encryptMessage(String messageName, String message, String name) thro
 	fm.encryptMessage(messageName, message, name);
 	}
 
-public void decryptMessage(String messageName, String keyName) throws Exception {
-	fm.decryptMessage(messageName, keyName);
+public String decryptMessage(String messageName, String keyName) throws Exception {
+	return fm.decryptMessage(messageName, keyName);
 	}
 	
 }

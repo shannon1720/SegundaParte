@@ -29,18 +29,14 @@ public class ManagerEncrypttoRC2 implements FactoryManager {
 	public void createKey(String name) throws Exception {
 		byte[] key = generatedSequenceOfBytes();
 		writeBytesFile(name, key, KEY_EXTENSION);
-
 	}
 
 	@Override
 	public void encryptMessage(String messageName, String message, String keyName) throws Exception {
 		byte[] key = readKeyFile(keyName);
-		SecureRandom sr = new SecureRandom("password".getBytes());
-		KeyGenerator keygenerator = KeyGenerator.getInstance("RC2");
-		keygenerator.init(sr);
-		SecretKey myDesKey = keygenerator.generateKey();
 		Cipher cipher = Cipher.getInstance("RC2");
-		cipher.init(Cipher.ENCRYPT_MODE, myDesKey);
+		SecretKeySpec k = new SecretKeySpec(key,"RC2");
+		cipher.init(Cipher.ENCRYPT_MODE, k);
 		byte[] encryptedData = cipher.doFinal(message.getBytes());
 		Encoder oneEncoder = Base64.getEncoder();
 		encryptedData = oneEncoder.encode(encryptedData);
@@ -49,20 +45,17 @@ public class ManagerEncrypttoRC2 implements FactoryManager {
 	}
 
 	@Override
-	public void decryptMessage(String messageName, String keyName) throws Exception {
+	public String decryptMessage(String messageName, String keyName) throws Exception {
 		byte[] key = readKeyFile(keyName);
-		SecureRandom sr = new SecureRandom("password".getBytes());
-		KeyGenerator kg = KeyGenerator.getInstance("RC2");
-		kg.init(sr);
-		SecretKey sk = kg.generateKey();
+		Cipher cipher = Cipher.getInstance("RC2");
+		SecretKeySpec k = new SecretKeySpec(key,"RC2");
 		byte[] encryptedMessage = readMessageFile(messageName);
 		System.out.println(encryptedMessage.length);
-		Cipher cipher = Cipher.getInstance("RC2");
-		cipher.init(Cipher.DECRYPT_MODE, sk);
+		cipher.init(Cipher.DECRYPT_MODE, k);
 		byte[] DecryptedData = cipher.doFinal(encryptedMessage);
 		String message = new String(DecryptedData);
-		System.out.println("The message was: ");
-		System.out.println(message);
+		return "The message was: "+message;
+	
 
 	}
 
@@ -71,7 +64,6 @@ public class ManagerEncrypttoRC2 implements FactoryManager {
 		FileOutputStream fos = new FileOutputStream(PATH + name + type);
 		fos.write(content);
 		fos.close();
-
 	}
 
 	@Override

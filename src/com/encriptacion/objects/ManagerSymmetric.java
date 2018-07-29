@@ -47,17 +47,16 @@ public class ManagerSymmetric implements FactoryManager{
 	}
 
 	@Override
-	public void decryptMessage(String messageName, String keyName) throws Exception {
+	public String decryptMessage(String messageName, String keyName) throws Exception {
 		byte[] key = readKeyFile(keyName);
 		byte[] encryptedMessage = readMessageFile(messageName);
-		System.out.println(encryptedMessage.length);
 		Cipher cipher = Cipher.getInstance("AES");
 		SecretKeySpec k = new SecretKeySpec(key,"AES");
 		cipher.init(Cipher.DECRYPT_MODE, k);
 		byte[] DecryptedData = cipher.doFinal(encryptedMessage);
 		String message = new String(DecryptedData, StandardCharsets.UTF_8);
-		System.out.println("The message was: ");
-		System.out.println(message);
+		return "The message was: "+message;
+		
 	}
 
 	@Override

@@ -96,7 +96,6 @@ public class UI {
 		case 3:
 			DencryptMessage();
 			break;
-
 		case 4:
 			break;
 		}
@@ -109,7 +108,7 @@ public class UI {
 		keyName = br.readLine();
 		System.out.println("Message name: ");
 		messageName = br.readLine();
-		eM.decryptMessage(messageName, keyName);
+		System.out.println(eM.decryptMessage(messageName, keyName));
 
 	}
 
